@@ -1,25 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Piano } from "./components/Piano";
+import { RootStore } from "./store/RootStore";
+import { Provider } from "mobx-react";
+
+const rootStore = RootStore.create();
+window.STATE = rootStore;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider rootStore={rootStore}>
+      <div className="App">
+        <Piano />
+      </div>
+    </Provider>
   );
 }
 
