@@ -1,48 +1,50 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { TONES } from "../const";
 import { OCTAVE_NOTES } from "../const";
+import { Howl } from "howler";
 
 const Key = inject("rootStore")(
-  observer(function Key({ tone, index, rootStore, isActive }) {
+  observer(function Key({ tone, index, rootStore }) {
     const { setNotes, selectedNotesIndex } = rootStore;
 
-    return (
-      <>
-        {tone.includes("#") ? (
-          <div className="sharp">
-            <div
-              onClick={() => setNotes(tone, index)}
-              className={`key ${tone.includes("#") ? "black" : "white"} ${
-                selectedNotesIndex().includes(index) && "isActive"
-              }`}
-            >
-              {tone}
-            </div>
-          </div>
-        ) : (
-          <div
-            onClick={() => setNotes(tone, index)}
-            className={`key ${tone.includes("#") ? "black" : "white"} ${
-              selectedNotesIndex().includes(index) && "isActive"
-            }`}
-          >
-            {tone}
-          </div>
-        )}
-      </>
+    const singleKey = (optionalCLass) => (
+      <div
+        onClick={() => {
+          const sound = new Howl({
+            src: [`../sounds/${tone}.mp3`],
+          });
+
+          const chordToPlay = sound.play();
+          sound.fade(1, 0, 1200, chordToPlay);
+          setNotes(tone, index);
+        }}
+        className={`key ${optionalCLass} ${
+          selectedNotesIndex().includes(index) && "isActive"
+        }`}
+      >
+        <p className="textKey">
+          {optionalCLass === "white" && tone.includes("C") && tone}
+        </p>
+      </div>
+    );
+
+    return tone.includes("b") ? (
+      <div className="sharp">{singleKey("black")}</div>
+    ) : (
+      singleKey("white")
     );
   })
 );
 
-export const Keys = inject("rootStore")(
-  observer(function Keys({ rootStore }) {
-    return (
-      <div className="keys">
-        {OCTAVE_NOTES.map((tone, i) => (
-          <Key tone={tone} key={i} index={i} />
-        ))}
-      </div>
-    );
-  })
-);
+export const Keys = () => {
+  return (
+    <div className="keys">
+      <audio id="audio">
+        <source src="../sounds/A0.mp3" />
+      </audio>
+      {OCTAVE_NOTES.map((tone, i) => (
+        <Key tone={tone} key={i} index={i} />
+      ))}
+    </div>
+  );
+};

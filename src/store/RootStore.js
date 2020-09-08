@@ -1,7 +1,13 @@
 import { types as t } from "mobx-state-tree";
 import { NoteModel } from "./Note";
 import { CHORDS } from "../const";
-import { removeNumberFromNote, extractNoteIndex } from "../utils";
+import {
+  removeNumberFromNote,
+  extractNoteIndex,
+  getHightestNote,
+  getLowestNote,
+} from "../utils";
+import AudioPlayer from "../components/Audio";
 // chords https://www.piano-keyboard-guide.com/keyboard-chords.html
 
 export const RootStore = t
@@ -13,12 +19,13 @@ export const RootStore = t
     setNotes(note, i) {
       const isNoteAlreadyIn = self.selectedNotesIndex().indexOf(i);
       const indexNotesSlected = extractNoteIndex(self.sortNotes());
-      const currentLowestNote =
-        indexNotesSlected.length > 0 ? Math.min(...indexNotesSlected) : 0;
+      const currentLowestNote = getLowestNote(indexNotesSlected);
+      const currentHighestNote = getHightestNote(indexNotesSlected);
 
       if (
         (currentLowestNote && i - currentLowestNote > 12) ||
-        currentLowestNote - i > 12
+        currentLowestNote - i > 12 ||
+        currentHighestNote - i > 12
       ) {
         return null;
       } else if (isNoteAlreadyIn > -1) {
@@ -39,8 +46,8 @@ export const RootStore = t
       let chordResult = "";
       CHORDS.forEach((chord) => {
         if (
-          JSON.stringify(Object.values(chord)[0]) ===
-          JSON.stringify(removeNumberFromNote(self.sortNotes()))
+          Object.values(chord)[0].sort().join(",") ===
+          removeNumberFromNote(self.sortNotes()).sort().join(",")
         ) {
           chordResult = chord;
         }
@@ -50,6 +57,11 @@ export const RootStore = t
     },
     refreshKeys() {
       self.selectedNotes = [];
+    },
+    playSingleNote(note) {
+      const audioPlayer = AudioPlayer();
+      audioPlayer.setInstrument("bright_acoustic_piano");
+      audioPlayer.playNote(note);
     },
   }))
   .views((self) => ({

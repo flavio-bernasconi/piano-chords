@@ -7,3 +7,14 @@ export function getNotesToPlay(notes) {
 export function extractNoteIndex(notes) {
   return notes.map((single) => single.index);
 }
+
+export function getHightestNote(notes) {
+  if (notes.length > 0) {
+    return Math.max(...notes);
+  } else return 0;
+}
+export function getLowestNote(notes) {
+  if (notes.length > 0) {
+    return Math.min(...notes);
+  } else return 0;
+}

@@ -3,20 +3,16 @@ html {
 }
 
 body {
-  height: 100%;
-  display: -webkit-box;
+  background-color: rgb(204, 204, 204);
+}
+.piano {
   display: flex;
   margin: auto;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
   align-items: center;
-  background-color: rgb(117, 117, 117);
+  overflow-x: auto;
 }
-
 .keys {
   display: flex;
-  flex-wrap: wrap;
 }
 .sharp {
   position: relative;
@@ -28,28 +24,30 @@ body {
 .key {
   float: left;
   position: relative;
+  border-top: 3px solid #a50d0d;
+}
+.white.isActive {
+  background-color: #d8e0e4 !important;
+}
+.black.isActive {
+  background-color: #fbce41 !important;
 }
 
 .white {
-  height: 14.4vw;
-  width: 3.8095238095vw;
+  height: 50vh;
+  width: 3.5vw;
   z-index: 1;
-  border-top: 0.12vw solid #aaaaaa;
-  border-bottom: 0.12vw solid #aaaaaa;
-  border-left: 0.12vw solid #aaaaaa;
-  background-color: #cbcbcb;
+  border-bottom: 1px solid #aaaaaa;
+  border-left: 1px solid #aaaaaa;
+  background-color: white;
+  margin-bottom: 20px;
 }
 
 .black {
-  height: 7.92vw;
-  width: 2.0952380952vw;
+  height: 30vh;
+  width: 1.8vw;
   z-index: 2;
-  border: 0.12vw solid #000000;
   background-color: #222222;
-}
-
-.isActive {
-  background-color: red !important;
 }
 
 .a,
@@ -58,59 +56,27 @@ body {
 .e,
 .g,
 .black {
-  margin: 0 0 0 -1.1676190476vw;
+  margin: 0 0 0 -1vw;
 }
 
 #keyboard > .note:last-child {
-  border-right: 0.12vw solid #aaaaaa;
+  border-right: 0.12vw solid #830404;
 }
 
-/* 
-.piano-container {
-  display: inline-flex;
-  border-top: 10px solid blue;
-}
-
-.piano-natural-key {
-  width: 50px;
-  height: 180px;
-  cursor: pointer;
-  background: #fafafa;
-  margin: 0 2px;
-  color: #444;
-  padding: 10px;
-  border-radius: 0 0 3px 3px;
-}
-
-.piano-text {
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  font-size: 1rem;
-}
-
-.piano-natural-key-playing {
-  border-bottom: 10px solid blue;
-  color: blue;
-}
-
-.piano-accidental-key-wrapper {
-  position: relative;
-  width: 0;
-}
-
-.piano-accidental-key {
+.textKey {
   position: absolute;
-  cursor: pointer;
-  background: #444;
-  transform: translateX(-50%);
-  width: 36px;
-  height: 120px;
-  border-radius: 0 0 3px 3px;
-  border: 3px solid #444;
-  border-top: none;
-  padding: 5px;
-  outline: none;
-  color: #dbdbdd;
-} */
+  bottom: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  font-weight: 900;
+  color: gray;
+}
+
+.selectedNotes {
+  display: flex;
+  justify-content: center;
+}
+.selectedNotes .singleNoteSelected {
+  margin-right: 15px;
+}
