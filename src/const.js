@@ -64,7 +64,7 @@ const DIMINISHED = [
   { "B diminished": [" B", " D", "F"] },
 ];
 
-const MAJOR_SEVEN = [
+const MAJOR_SEVENTH = [
   { "C major seventh": ["C", "E", "G", "B"] },
   { "C# major seventh": ["Db", "F", "Ab", "C"] },
   { "D major seventh": ["D", "Gb", "A", "Db"] },
@@ -79,4 +79,19 @@ const MAJOR_SEVEN = [
   { "B major seventh": ["B", "Eb", "Gb", "Bb"] },
 ];
 
-export const CHORDS = [...MAJOR, ...MINOR, ...DIMINISHED, ...MAJOR_SEVEN];
+const DOMINANT_SEVENTH = [
+  { "C dominant seventh": ["C", "E", "G", "B"] },
+  { "C# dominant seventh": ["Db", "F", "Ab", "C"] },
+  { "D dominant seventh": ["D", "Gb", "A", "Db"] },
+  { "D# dominant seventh": ["Eb", "G", "Bb", "D"] },
+  { "E dominant seventh": ["E", "Ab", "B", "Eb"] },
+  { "F dominant seventh": ["F", "A", "C", "E"] },
+  { "F# dominant seventh": ["Gb", "Bb", "Db", "F"] },
+  { "G dominant seventh": ["G", "B", "D", "Gb"] },
+  { "Ab dominant seventh": ["Ab", "C", "Eb", "G"] },
+  { "A dominant seventh": ["A", "Db", "E", "Ab"] },
+  { "Bb dominant seventh": ["Bb", "D", "F", "A"] },
+  { "B dominant seventh": ["B", "Eb", "Gb", "Bb"] },
+];
+
+export const CHORDS = [...MAJOR, ...MINOR, ...DIMINISHED, ...MAJOR_SEVENTH];
