@@ -1,6 +1,6 @@
 import { types as t } from "mobx-state-tree";
 import { NoteModel } from "./Note";
-import { CHORDS } from "../const";
+import { CHORDS, OCTAVE_NOTES } from "../const";
 import { removeNumberFromNote } from "../utils";
 import AudioPlayer from "../components/Audio";
 // chords https://www.piano-keyboard-guide.com/keyboard-chords.html
@@ -10,14 +10,13 @@ const limitKeys = 5;
 export const RootStore = t
   .model("RootStore", {
     selectedNotes: t.array(NoteModel),
-    result: t.optional(t.string, ""),
+    currentChord: t.optional(t.string, ""),
     relatedChords: t.optional(t.array(t.frozen()), []),
     rootOctave: t.optional(t.string, ""),
   })
   .actions((self) => ({
     setNotes(note, i) {
       const isNoteAlreadyIn = self.selectedNotesNames().indexOf(note);
-      console.log(self.selectedNotes.toJSON());
       if (isNoteAlreadyIn > -1) {
         self.selectedNotes.splice(isNoteAlreadyIn, 1);
       } else {
@@ -50,7 +49,7 @@ export const RootStore = t
       });
 
       const chordName = Object.keys(chordResult)[0];
-      self.result = chordName;
+      self.currentChord = chordName;
       chordName && self.getRelatedChords(chordName.slice(0, 2));
       self.rootOctave = self.sortNotes()[0].note.slice(-1);
       return chordResult;
@@ -64,13 +63,35 @@ export const RootStore = t
       audioPlayer.playNote(note);
     },
     getRelatedChords(chordToFind) {
-      const relatedChords = CHORDS.filter((chord) => {
-        const key = Object.keys(chord);
-        // && key[0] !== self.result
-        return key[0].startsWith(chordToFind);
-      });
-      console.log("relatedChords store", relatedChords);
+      const relatedChords = CHORDS.filter((chord) =>
+        Object.keys(chord)[0].startsWith(chordToFind)
+      );
       self.relatedChords = relatedChords;
+    },
+    changeRelatedChord(relatedChord) {
+      const chordsToPlay = Object.values(relatedChord)[0];
+      if (chordsToPlay === self.currentChord) {
+        return null;
+      } else {
+        self.refreshKeys();
+        chordsToPlay.forEach((tone, index) => {
+          const clone = [...OCTAVE_NOTES];
+          const indexRootNote = OCTAVE_NOTES.indexOf(
+            Boolean(self.selectedNotes.length) && self.selectedNotes[0]?.note
+          );
+          if (indexRootNote > -1) {
+            const notesStartFromRoot = clone.filter(
+              (_, i) => i >= +indexRootNote
+            );
+            const noteToPlayAllOctave = notesStartFromRoot.filter((note) => {
+              return note.trim().slice(0, -1) === tone.trim();
+            });
+            self.setNotes(noteToPlayAllOctave[0], index);
+          } else {
+            self.setNotes(tone.trim() + self.rootOctave, index);
+          }
+        });
+      }
     },
   }))
   .views((self) => ({
