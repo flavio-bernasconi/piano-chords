@@ -4,6 +4,7 @@ import AudioPlayer from "./Audio";
 import { getNotesToPlay } from "../utils";
 import { DisplayNotes } from "./DisplayNotes";
 import { Howl } from "howler";
+import { RelatedChords } from "./RelatedChords";
 
 export const DashBoard = inject("rootStore")(
   observer(function DashBoard({ rootStore }) {
@@ -15,16 +16,22 @@ export const DashBoard = inject("rootStore")(
       audioPlayer.setInstrument("bright_acoustic_piano");
     }, [audioPlayer]);
 
-    const handleClick = () => {
+    const playChord = () => {
       const listOfSounds = getNotesToPlay(selectedNotes).map((note, i) => {
         return new Howl({
           src: [`../sounds/${note}.mp3`],
+          volume: 1,
         });
       });
 
-      listOfSounds.forEach((sound) => {
-        const singleNotePlaying = sound.play();
-        sound.fade(1, 0, 1200, singleNotePlaying);
+      listOfSounds.forEach((sound, i) => {
+        // const singleNotePlaying = sound.play();
+        // console.log(sound);
+        // sound.fade(1, 0, 1200, singleNotePlaying);
+        setTimeout(() => {
+          const singleNotePlaying = sound.play();
+          sound.fade(1, 0, 1200, singleNotePlaying);
+        }, i * 50);
       });
     };
 
@@ -38,9 +45,10 @@ export const DashBoard = inject("rootStore")(
         {selectedNotes.length > 2 && result && (
           <>
             <h1>{result}</h1>
-            <button onClick={handleClick}>Play</button>
+            <RelatedChords />
           </>
         )}
+        <button onClick={playChord}>Play</button>
       </div>
     );
   })

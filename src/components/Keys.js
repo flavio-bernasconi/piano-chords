@@ -5,25 +5,27 @@ import { Howl } from "howler";
 
 const Key = inject("rootStore")(
   observer(function Key({ tone, index, rootStore }) {
-    const { setNotes, selectedNotesIndex } = rootStore;
+    const { setNotes, selectedNotesNames } = rootStore;
+
+    function playSingleNote() {
+      const sound = new Howl({
+        src: [`../sounds/${tone}.mp3`],
+      });
+      const chordToPlay = sound.play();
+      sound.fade(1, 0, 1200, chordToPlay);
+      setNotes(tone, index);
+    }
 
     const singleKey = (optionalCLass) => (
       <div
-        onClick={() => {
-          const sound = new Howl({
-            src: [`../sounds/${tone}.mp3`],
-          });
-
-          const chordToPlay = sound.play();
-          sound.fade(1, 0, 1200, chordToPlay);
-          setNotes(tone, index);
-        }}
+        onClick={playSingleNote}
         className={`key ${optionalCLass} ${
-          selectedNotesIndex().includes(index) && "isActive"
+          selectedNotesNames().includes(tone) && "isActive"
         }`}
       >
         <p className="textKey">
-          {optionalCLass === "white" && tone.includes("C") && tone}
+          {/* {optionalCLass === "white" && tone.includes("C") && tone} */}
+          {tone}
         </p>
       </div>
     );
