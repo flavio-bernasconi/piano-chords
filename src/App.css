@@ -1,5 +1,7 @@
-html {
+html,
+body {
   height: 100%;
+  margin: 0;
 }
 
 body {
@@ -9,10 +11,11 @@ body {
   display: flex;
   margin: auto;
   align-items: center;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 .keys {
   display: flex;
+  width: 100%;
 }
 .sharp {
   position: relative;
@@ -34,8 +37,8 @@ body {
 }
 
 .white {
-  height: 50vh;
-  width: 3.5vw;
+  min-height: 40vh;
+  min-width: calc(100% / 28);
   z-index: 1;
   border-bottom: 1px solid #aaaaaa;
   border-left: 1px solid #aaaaaa;
@@ -44,7 +47,7 @@ body {
 }
 
 .black {
-  height: 30vh;
+  min-height: 23vh;
   width: 1.8vw;
   z-index: 2;
   background-color: #222222;
