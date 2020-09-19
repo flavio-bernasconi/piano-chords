@@ -31,3 +31,10 @@ export function isOutOfRange(indexNotesSlected, i) {
     return true;
   } else return false;
 }
+
+export function isChordEqualToSelectedNotes(chord, self) {
+  return (
+    Object.values(chord)[0].slice().sort().join(",") ===
+    removeNumberFromNote(self.sortNotes()).sort().join(",")
+  );
+}
