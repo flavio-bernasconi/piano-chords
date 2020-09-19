@@ -8,7 +8,7 @@ import { RelatedChords } from "./RelatedChords";
 
 export const DashBoard = inject("rootStore")(
   observer(function DashBoard({ rootStore }) {
-    const { getChord, result, selectedNotes, sortNotes } = rootStore;
+    const { getChord, currentChord, selectedNotes, sortNotes } = rootStore;
 
     const audioPlayer = AudioPlayer();
 
@@ -42,9 +42,9 @@ export const DashBoard = inject("rootStore")(
     return (
       <div>
         <DisplayNotes notes={sortNotes(selectedNotes)} />
-        {selectedNotes.length > 2 && result && (
+        {selectedNotes.length > 2 && currentChord && (
           <>
-            <h1>{result}</h1>
+            <h1>{currentChord}</h1>
             <RelatedChords />
           </>
         )}
