@@ -1,0 +1,51 @@
+.piano {
+  display: flex;
+  margin: auto;
+  align-items: center;
+  overflow-x: hidden;
+  .keys {
+    display: flex;
+    width: 100%;
+    .sharp {
+      position: relative;
+      .key {
+        position: absolute;
+      }
+    }
+    .key {
+      float: left;
+      position: relative;
+      border-top: 3px solid #a50d0d;
+      .textKey {
+        position: absolute;
+        bottom: 0;
+        margin: 0;
+        text-align: center;
+        width: 100%;
+        font-weight: 900;
+        color: red;
+      }
+    }
+    .white {
+      min-height: 40vh;
+      min-width: calc(100% / 28);
+      z-index: 1;
+      border-bottom: 1px solid #aaaaaa;
+      border-left: 1px solid #aaaaaa;
+      background-color: white;
+      margin-bottom: 20px;
+      &.isActive {
+        background-color: #d8e0e4 !important;
+      }
+    }
+    .black {
+      min-height: 23vh;
+      width: 1.8vw;
+      z-index: 2;
+      background-color: #222222;
+      &.isActive {
+        background-color: #fbce41 !important;
+      }
+    }
+  }
+}

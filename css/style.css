@@ -5,21 +5,25 @@ body {
 }
 
 body {
-  background-color: rgb(204, 204, 204);
+  background-color: #cccccc;
 }
+
 .piano {
   display: flex;
   margin: auto;
   align-items: center;
   overflow-x: hidden;
 }
+
 .keys {
   display: flex;
   width: 100%;
 }
+
 .sharp {
   position: relative;
 }
+
 .sharp > .key {
   position: absolute;
 }
@@ -29,9 +33,11 @@ body {
   position: relative;
   border-top: 3px solid #a50d0d;
 }
+
 .white.isActive {
   background-color: #d8e0e4 !important;
 }
+
 .black.isActive {
   background-color: #fbce41 !important;
 }
@@ -80,6 +86,8 @@ body {
   display: flex;
   justify-content: center;
 }
+
 .selectedNotes .singleNoteSelected {
   margin-right: 15px;
 }
+/*# sourceMappingURL=style.css.map */

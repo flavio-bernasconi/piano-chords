@@ -1,12 +1,11 @@
 import { inject, observer } from "mobx-react";
 import React from "react";
-import { OCTAVE_NOTES } from "../const";
 
 export const RelatedChords = inject("rootStore")(
   observer(function RelatedChords({ rootStore }) {
     const { currentChord, relatedChords, changeRelatedChord } = rootStore;
 
-    console.log("component related", relatedChords);
+    console.log("component currentChord", currentChord);
 
     return (
       <div>

@@ -20,7 +20,7 @@ export const RootStore = t
       if (isNoteAlreadyInIndex > -1) {
         self.selectedNotes.splice(isNoteAlreadyInIndex, 1);
       } else {
-        if (!self.isFull()) {
+        if (!self.isSelectedNotesFull()) {
           const infoNote = { note, index: i };
           self.selectedNotes = [...self.selectedNotes, infoNote];
         } else {
@@ -30,6 +30,9 @@ export const RootStore = t
             self.selectedNotes = [...self.selectedNotes, infoNote];
           }
         }
+      }
+      if (self.selectedNotes.length > 2) {
+        self.getChord();
       }
     },
     sortNotes() {
@@ -104,7 +107,7 @@ export const RootStore = t
     selectedNotesNames() {
       return self.selectedNotes.map((note) => note.note);
     },
-    isFull() {
+    isSelectedNotesFull() {
       return self.selectedNotes.length >= limitKeys;
     },
   }));

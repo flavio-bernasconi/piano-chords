@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./style.scss";
 import { Piano } from "./components/Piano";
 import { RootStore } from "./store/RootStore";
 import { Provider } from "mobx-react";
@@ -11,10 +11,8 @@ window.STATE = rootStore;
 function App() {
   return (
     <Provider rootStore={rootStore}>
-      <div className="App">
-        <Piano />
-        <DashBoard />
-      </div>
+      <Piano />
+      <DashBoard />
     </Provider>
   );
 }

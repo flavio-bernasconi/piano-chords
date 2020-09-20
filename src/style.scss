@@ -1,0 +1,11 @@
+@import "scss/const";
+@import "scss/resets";
+@import "scss/piano";
+
+.selectedNotes {
+  display: flex;
+  justify-content: center;
+  .singleNoteSelected {
+    margin-right: 15px;
+  }
+}
