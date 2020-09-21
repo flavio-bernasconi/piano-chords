@@ -13,11 +13,13 @@ export const RootStore = t
     currentChord: t.optional(t.string, ""),
     relatedChords: t.optional(t.array(t.frozen()), []),
     rootOctave: t.optional(t.string, ""),
+    messageChordResult: t.optional(t.string, "select at least 3 notes"),
   })
   .actions((self) => ({
     setNotes(note, i) {
       const isNoteAlreadyInIndex = self.selectedNotesNames().indexOf(note);
-      if (isNoteAlreadyInIndex > -1) {
+      const isNoteAlreadyIn = isNoteAlreadyInIndex > -1;
+      if (isNoteAlreadyIn) {
         self.selectedNotes.splice(isNoteAlreadyInIndex, 1);
       } else {
         if (!self.isSelectedNotesFull()) {
@@ -33,6 +35,10 @@ export const RootStore = t
       }
       if (self.selectedNotes.length > 2) {
         self.getChord();
+        self.messageChordResult = "";
+      } else {
+        self.currentChord = "";
+        self.messageChordResult = "select at least 3 notes";
       }
     },
     sortNotes() {
@@ -49,13 +55,16 @@ export const RootStore = t
       });
 
       const chordName = Object.keys(chordResult)[0];
-      self.currentChord = chordName;
+      self.currentChord = chordName || "no chord found";
       chordName && self.getRelatedChords(chordName.slice(0, 2));
       self.rootOctave = self.sortNotes()[0].note.slice(-1);
+
       return chordResult;
     },
     refreshKeys() {
       self.selectedNotes = [];
+      self.currentChord = "";
+      self.messageChordResult = "select at least 3 notes";
     },
     playSingleNote(note) {
       const audioPlayer = AudioPlayer();

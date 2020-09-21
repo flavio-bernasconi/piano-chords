@@ -117,3 +117,5 @@ export const CHORDS = [
   ...MINOR_SEVENTH,
   ...MINOR_SEVENTH_FLAT,
 ];
+
+export const timeNotesPlay = 1300;

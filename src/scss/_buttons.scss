@@ -1,0 +1,39 @@
+.buttons {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  .play {
+    height: 100px;
+    width: 100px;
+    border: solid 3px $yellow;
+    border-radius: 50%;
+    background-color: transparent;
+    margin: 60px 0;
+    &:hover {
+      cursor: pointer;
+    }
+    &.playing {
+      animation-name: example;
+      animation-duration: 1.3s;
+    }
+    div {
+      padding-left: 4px;
+    }
+  }
+  .reset {
+    height: 50px;
+    width: 50px;
+    background-color: $black2;
+    color: white;
+    opacity: 0.4;
+  }
+}
+
+@keyframes example {
+  0% {
+    background-color: $yellow;
+  }
+  100% {
+    background-color: $yellow;
+  }
+}

@@ -1,11 +1,9 @@
 @import "scss/const";
 @import "scss/resets";
 @import "scss/piano";
+@import "scss/dashboard";
+@import "scss/buttons";
 
-.selectedNotes {
-  display: flex;
-  justify-content: center;
-  .singleNoteSelected {
-    margin-right: 15px;
-  }
+body {
+  font-family: $font;
 }

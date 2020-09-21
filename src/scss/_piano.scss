@@ -1,3 +1,14 @@
+@mixin textKey {
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  font-weight: 900;
+  color: rgb(219, 219, 219);
+  font-size: 18px;
+}
+
 .piano {
   display: flex;
   margin: auto;
@@ -16,6 +27,38 @@
       float: left;
       position: relative;
       border-top: 3px solid #a50d0d;
+      &.white {
+        min-height: 40vh;
+        min-width: calc(100% / 28);
+        z-index: 1;
+        border-bottom: 1px solid #aaaaaa;
+        border-left: 1px solid #aaaaaa;
+        background-color: white;
+        &.isActive {
+          background-color: #d8e0e4 !important;
+          .textKey {
+            color: $black;
+          }
+        }
+        & .textKey {
+          font-size: 14px;
+        }
+      }
+      &.black {
+        min-height: 23vh;
+        width: 1.8vw;
+        z-index: 2;
+        background-color: #222222;
+        &.isActive {
+          background-color: $yellow !important;
+          .textKey {
+            color: $gray;
+          }
+        }
+        & .textKey {
+          font-size: 12px;
+        }
+      }
       .textKey {
         position: absolute;
         bottom: 0;
@@ -23,28 +66,7 @@
         text-align: center;
         width: 100%;
         font-weight: 900;
-        color: red;
-      }
-    }
-    .white {
-      min-height: 40vh;
-      min-width: calc(100% / 28);
-      z-index: 1;
-      border-bottom: 1px solid #aaaaaa;
-      border-left: 1px solid #aaaaaa;
-      background-color: white;
-      margin-bottom: 20px;
-      &.isActive {
-        background-color: #d8e0e4 !important;
-      }
-    }
-    .black {
-      min-height: 23vh;
-      width: 1.8vw;
-      z-index: 2;
-      background-color: #222222;
-      &.isActive {
-        background-color: #fbce41 !important;
+        color: rgb(219, 219, 219);
       }
     }
   }
