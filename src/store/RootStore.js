@@ -55,7 +55,7 @@ export const RootStore = t
       });
 
       const chordName = Object.keys(chordResult)[0];
-      self.currentChord = chordName || "no chord found";
+      self.currentChord = chordName || "chord not found";
       chordName && self.getRelatedChords(chordName.slice(0, 2));
       self.rootOctave = self.sortNotes()[0].note.slice(-1);
 
@@ -85,6 +85,7 @@ export const RootStore = t
         setNotes,
         rootOctave,
       } = self;
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
       const chordsToPlay = Object.values(relatedChord)[0];
       if (chordsToPlay === currentChord) {

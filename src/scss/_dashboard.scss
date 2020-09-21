@@ -1,8 +1,10 @@
 .dashboard {
-  //   background-color: $black2;
+  background-color: $black2;
+  //   background-color: white;
   min-height: 60vh;
   color: white;
   position: relative;
+  padding: 50px 0;
   .list-notes {
     display: flex;
     flex-wrap: wrap;
@@ -12,7 +14,7 @@
       display: flex;
       width: 100%;
       justify-content: center;
-      margin-top: 50px;
+      // margin-top: 50px;
       .singleNoteSelected {
         margin-right: 15px;
         color: $gray;

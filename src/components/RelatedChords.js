@@ -1,35 +1,48 @@
 import { inject, observer } from "mobx-react";
-import React from "react";
+import React, { useState } from "react";
+import ScrollContainer from "react-indiana-drag-scroll";
 
 export const RelatedChords = inject("rootStore")(
   observer(function RelatedChords({ rootStore }) {
     const { currentChord, relatedChords, changeRelatedChord } = rootStore;
+    const initialOpacity = 1;
+    const [opacityTitle, setopacityTitle] = useState(initialOpacity);
 
-    console.log("component currentChord", currentChord);
+    const scrolling = (px) => {
+      setopacityTitle(initialOpacity - px * 0.002);
+    };
 
     return (
-      <div>
-        <h1>related</h1>
-        {currentChord &&
-          relatedChords.map((relatedChord, i) => {
-            return (
+      <div className="related-chords-container">
+        <h1 style={{ opacity: opacityTitle }} className="big-title">
+          related
+          <br /> chords
+        </h1>
+        <ScrollContainer
+          onScroll={(px) => scrolling(px)}
+          className="related-chords"
+        >
+          {currentChord &&
+            relatedChords.map((relatedChord, i) => (
               <div
-                key={Math.random()}
                 onClick={() => {
                   changeRelatedChord(relatedChord);
                 }}
+                className={`related-chord  ${
+                  Object.keys(relatedChord)[0] === currentChord
+                    ? "isActive"
+                    : ""
+                }`}
               >
-                <p>
-                  {Object.keys(relatedChord)} -
+                <h3>{Object.keys(relatedChord)}</h3>
+                <div>
                   {Object.values(relatedChord)[0].map((note, i) => (
-                    <span key={i} style={{ margin: 10 }}>
-                      {note}
-                    </span>
+                    <span key={i}>{note}</span>
                   ))}
-                </p>
+                </div>
               </div>
-            );
-          })}
+            ))}
+        </ScrollContainer>
       </div>
     );
   })
