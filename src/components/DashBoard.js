@@ -4,6 +4,7 @@ import { DisplayNotes } from "./DisplayNotes";
 import { RelatedChords } from "./RelatedChords";
 import { PlayResetButtons } from "./PlayResetButtons";
 import { vf } from "./Pentagram";
+import { OtherChords } from "./OtherChords";
 
 export const DashBoard = inject("rootStore")(
   observer(function DashBoard({ rootStore }) {
@@ -13,6 +14,9 @@ export const DashBoard = inject("rootStore")(
       sortNotes,
       messageChordResult,
       setNotes,
+      inversion,
+      setInversionChord,
+      getChord,
     } = rootStore;
 
     useEffect(() => {
@@ -24,23 +28,30 @@ export const DashBoard = inject("rootStore")(
     }, []);
 
     const x = selectedNotes.toJSON();
-    // vf.draw();
-    selectedNotes.map((note) => console.log(note));
+    vf.draw();
 
     return (
-      <div className="dashboard">
-        <div className="list-notes">
-          <DisplayNotes notes={sortNotes()} />
-          <div className="chord-result">
-            <h1>{currentChord}</h1>
-            {messageChordResult}
+      <div>
+        <div className="dashboard">
+          <div className="list-notes">
+            <DisplayNotes notes={sortNotes()} />
+            <div className="chord-result">
+              {currentChord && (
+                <>
+                  <h1>{currentChord}</h1>
+                  {[0, 1, 2].map((n) => (
+                    <p onClick={() => setInversionChord(n)}>{n}</p>
+                  ))}
+                  {/* <h5>{inversion}</h5> */}
+                </>
+              )}
+              {messageChordResult}
+            </div>
           </div>
+          {selectedNotes.length > 0 && <PlayResetButtons />}
+          {selectedNotes.length > 2 && currentChord && <RelatedChords />}
         </div>
-
-        {selectedNotes.length > 0 && <PlayResetButtons />}
-        {/* <PlayResetButtons /> */}
-
-        {selectedNotes.length > 2 && currentChord && <RelatedChords />}
+        <OtherChords />
       </div>
     );
   })

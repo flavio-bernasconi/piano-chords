@@ -1,3 +1,5 @@
+import { CHORDS } from "./const";
+
 export function removeNumberFromNote(notes) {
   return notes.map((single) => single.note.replace(/[0-9]/g, ""));
 }
@@ -38,3 +40,78 @@ export function isChordEqualToSelectedNotes(chord, self) {
     removeNumberFromNote(self.sortNotes()).sort().join(",")
   );
 }
+
+export function getAllInversions(mainChord, inversionNumber, initialChord) {
+  const second = getNotesToPlay(initialChord).map((note, i) => {
+    if (i <= 1) {
+      return addOctaveToNote(note);
+    } else return note;
+  });
+
+  const first = getNotesToPlay(initialChord).map((note, i) => {
+    if (i === 0) {
+      return addOctaveToNote(note);
+    } else return note;
+  });
+
+  return CHORDS.filter((chord) => mainChord === Object.keys(chord)[0]).map(
+    (chord) => {
+      if (inversionNumber === 1) {
+        return {
+          inversionNumber,
+          chord: first,
+        };
+      } else if (inversionNumber === 2) {
+        return {
+          inversionNumber,
+          chord: second,
+        };
+      } else {
+        return { inversionNumber, chord: getNotesToPlay(initialChord) };
+      }
+    }
+  );
+}
+function addOctaveToNote(note) {
+  return note
+    .split("")
+    .map((l, i) => {
+      if (i === 1) {
+        return +l + 1;
+      } else return l;
+    })
+    .join("");
+}
+// function moveLastArrayElementToFirstIndex(array) {
+//   array.splice(0, 0, array[array.length - 1]);
+//   array.pop();
+//   return array;
+// }
+
+// function moveFirstElementToLastIndex(array, initialIndex, finalIndex) {
+//   array.splice(array.length - 1, 0, array.splice(0, 1)[0]);
+//   return array;
+// }
+
+// function addOctaveFirstInversion(notes, lowestOctaveCurrentChord) {
+//   console.log(notes);
+//   return notes.map((note, i) => {
+//     // console.log(note, lowestOctaveCurrentChord);
+//     if (i === 2) {
+//       console.log(note);
+//       return note + (lowestOctaveCurrentChord + 1);
+//     } else return note + lowestOctaveCurrentChord;
+//   });
+// }
+
+// function addOctaveSecondInversion(notes, lowestOctaveCurrentChord) {
+//   return notes.map((note, i) => {
+//     return note + (lowestOctaveCurrentChord + 1);
+//   });
+// }
+
+// function backToOrigin(notes, lowestOctaveCurrentChord) {
+//   return notes.map((note, i) => {
+//     return note + (lowestOctaveCurrentChord + 1);
+//   });
+// }

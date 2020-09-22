@@ -1,6 +1,19 @@
 import { inject, observer } from "mobx-react";
 import React, { useState } from "react";
 import ScrollContainer from "react-indiana-drag-scroll";
+import VisibilitySensor from "react-visibility-sensor";
+
+function MyComponent(props) {
+  return (
+    <VisibilitySensor>
+      {({ isVisible }) => (
+        <div className={isVisible ? "visible" : "invisible"}>
+          I am {isVisible ? "visible" : "invisible"}
+        </div>
+      )}
+    </VisibilitySensor>
+  );
+}
 
 export const RelatedChords = inject("rootStore")(
   observer(function RelatedChords({ rootStore }) {
@@ -24,23 +37,30 @@ export const RelatedChords = inject("rootStore")(
         >
           {currentChord &&
             relatedChords.map((relatedChord, i) => (
-              <div
-                onClick={() => {
-                  changeRelatedChord(relatedChord);
-                }}
-                className={`related-chord  ${
-                  Object.keys(relatedChord)[0] === currentChord
-                    ? "isActive"
-                    : ""
-                }`}
+              <VisibilitySensor
+                partialVisibility={{ left: 100 }}
+                key={Math.random()}
               >
-                <h3>{Object.keys(relatedChord)}</h3>
-                <div>
-                  {Object.values(relatedChord)[0].map((note, i) => (
-                    <span key={i}>{note}</span>
-                  ))}
-                </div>
-              </div>
+                {({ isVisible }) => (
+                  <div
+                    onClick={() => {
+                      changeRelatedChord(relatedChord);
+                    }}
+                    className={`related-chord  ${
+                      Object.keys(relatedChord)[0] === currentChord
+                        ? "isActive"
+                        : ""
+                    } ${isVisible ? "visible" : "invisible"}`}
+                  >
+                    <h3>{Object.keys(relatedChord)}</h3>
+                    <div>
+                      {Object.values(relatedChord)[0].map((note, i) => (
+                        <span key={i}>{note}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </VisibilitySensor>
             ))}
         </ScrollContainer>
       </div>

@@ -1,8 +1,13 @@
 import { types as t } from "mobx-state-tree";
 import { NoteModel } from "./Note";
 import { CHORDS, OCTAVE_NOTES } from "../const";
-import { isChordEqualToSelectedNotes } from "../utils";
+import {
+  getInversion,
+  isChordEqualToSelectedNotes,
+  getAllInversions,
+} from "../utils";
 import AudioPlayer from "../components/Audio";
+import cloneDeep from "lodash/cloneDeep";
 // chords https://www.piano-keyboard-guide.com/keyboard-chords.html
 
 const limitKeys = 5;
@@ -14,6 +19,8 @@ export const RootStore = t
     relatedChords: t.optional(t.array(t.frozen()), []),
     rootOctave: t.optional(t.string, ""),
     messageChordResult: t.optional(t.string, "select at least 3 notes"),
+    inversion: t.optional(t.number, 0),
+    initialChord: t.optional(t.array(t.frozen()), []),
   })
   .actions((self) => ({
     setNotes(note, i) {
@@ -39,6 +46,7 @@ export const RootStore = t
       } else {
         self.currentChord = "";
         self.messageChordResult = "select at least 3 notes";
+        self.inversion = 0;
       }
     },
     sortNotes() {
@@ -55,8 +63,13 @@ export const RootStore = t
       });
 
       const chordName = Object.keys(chordResult)[0];
+      if (chordName) {
+        self.getRelatedChords(chordName.slice(0, 2));
+      } else {
+        self.inversion = 0;
+      }
       self.currentChord = chordName || "chord not found";
-      chordName && self.getRelatedChords(chordName.slice(0, 2));
+      self.initialChord = cloneDeep(self.selectedNotes);
       self.rootOctave = self.sortNotes()[0].note.slice(-1);
 
       return chordResult;
@@ -64,6 +77,7 @@ export const RootStore = t
     refreshKeys() {
       self.selectedNotes = [];
       self.currentChord = "";
+      self.inversion = 0;
       self.messageChordResult = "select at least 3 notes";
     },
     playSingleNote(note) {
@@ -76,6 +90,20 @@ export const RootStore = t
         Object.keys(chord)[0].startsWith(chordToFind)
       );
       self.relatedChords = relatedChords;
+    },
+    setInversionChord(inversionNumber) {
+      const inversion = getAllInversions(
+        self.currentChord,
+        inversionNumber,
+        self.initialChord
+      );
+
+      self.selectedNotes = [];
+
+      inversion[0].chord.forEach((note, i) => {
+        const infoNote = { note, index: i };
+        self.selectedNotes = [...self.selectedNotes, infoNote];
+      });
     },
     changeRelatedChord(relatedChord) {
       const {
