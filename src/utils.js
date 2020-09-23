@@ -42,6 +42,7 @@ export function isChordEqualToSelectedNotes(chord, self) {
 }
 
 export function getAllInversions(mainChord, inversionNumber, initialChord) {
+  console.log("mainChord", mainChord, initialChord.toJSON());
   const second = getNotesToPlay(initialChord).map((note, i) => {
     if (i <= 1) {
       return addOctaveToNote(note);
@@ -55,7 +56,7 @@ export function getAllInversions(mainChord, inversionNumber, initialChord) {
   });
 
   return CHORDS.filter((chord) => mainChord === Object.keys(chord)[0]).map(
-    (chord) => {
+    () => {
       if (inversionNumber === 1) {
         return {
           inversionNumber,
@@ -76,12 +77,13 @@ function addOctaveToNote(note) {
   return note
     .split("")
     .map((l, i) => {
-      if (i === 1) {
+      if (i === note.split("").length - 1) {
         return +l + 1;
       } else return l;
     })
     .join("");
 }
+
 // function moveLastArrayElementToFirstIndex(array) {
 //   array.splice(0, 0, array[array.length - 1]);
 //   array.pop();

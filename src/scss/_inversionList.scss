@@ -1,0 +1,15 @@
+.inversions-list {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  margin: auto;
+  .inversion {
+    color: white;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .inversion-active {
+    color: $yellow;
+  }
+}

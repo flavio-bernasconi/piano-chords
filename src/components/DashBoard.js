@@ -5,6 +5,7 @@ import { RelatedChords } from "./RelatedChords";
 import { PlayResetButtons } from "./PlayResetButtons";
 import { vf } from "./Pentagram";
 import { OtherChords } from "./OtherChords";
+import { Inversion } from "./Inversion";
 
 export const DashBoard = inject("rootStore")(
   observer(function DashBoard({ rootStore }) {
@@ -14,9 +15,6 @@ export const DashBoard = inject("rootStore")(
       sortNotes,
       messageChordResult,
       setNotes,
-      inversion,
-      setInversionChord,
-      getChord,
     } = rootStore;
 
     useEffect(() => {
@@ -39,10 +37,7 @@ export const DashBoard = inject("rootStore")(
               {currentChord && (
                 <>
                   <h1>{currentChord}</h1>
-                  {[0, 1, 2].map((n) => (
-                    <p onClick={() => setInversionChord(n)}>{n}</p>
-                  ))}
-                  {/* <h5>{inversion}</h5> */}
+                  <Inversion />
                 </>
               )}
               {messageChordResult}

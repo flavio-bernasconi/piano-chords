@@ -3,18 +3,6 @@ import React, { useState } from "react";
 import ScrollContainer from "react-indiana-drag-scroll";
 import VisibilitySensor from "react-visibility-sensor";
 
-function MyComponent(props) {
-  return (
-    <VisibilitySensor>
-      {({ isVisible }) => (
-        <div className={isVisible ? "visible" : "invisible"}>
-          I am {isVisible ? "visible" : "invisible"}
-        </div>
-      )}
-    </VisibilitySensor>
-  );
-}
-
 export const RelatedChords = inject("rootStore")(
   observer(function RelatedChords({ rootStore }) {
     const { currentChord, relatedChords, changeRelatedChord } = rootStore;

@@ -69,7 +69,7 @@ export const RootStore = t
         self.inversion = 0;
       }
       self.currentChord = chordName || "chord not found";
-      self.initialChord = cloneDeep(self.selectedNotes);
+      self.initialChord = cloneDeep(self.sortNotes());
       self.rootOctave = self.sortNotes()[0].note.slice(-1);
 
       return chordResult;
@@ -98,6 +98,7 @@ export const RootStore = t
         self.initialChord
       );
 
+      self.inversion = inversionNumber;
       self.selectedNotes = [];
 
       inversion[0].chord.forEach((note, i) => {
