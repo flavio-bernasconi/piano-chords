@@ -1,6 +1,8 @@
 .related-chords-container {
   position: relative;
   margin-top: 70px;
+  background: $black;
+  padding: 70px 0;
   .big-title {
     position: absolute;
     font-size: 5rem;
@@ -13,29 +15,31 @@
   .related-chords {
     display: flex;
     overflow-x: scroll;
-    width: 90%;
+    width: 100%;
     margin: auto;
     padding: 20px;
+    box-sizing: border-box;
     .related-chord {
-      &:first-child {
-        margin-left: 40vw;
-      }
+      display: inline-block;
       margin-right: 60px;
-      background-color: $black2;
+      background-color: $black;
       min-width: 500px;
       color: white;
       border-radius: 20px;
       padding: 30px;
       box-sizing: border-box;
       border: solid 2px $yellow;
-      background-color: $black2;
       z-index: 3;
+      &:first-child {
+        margin-left: 40vw;
+      }
       h3 {
         font-size: 2rem;
         line-height: 3rem;
       }
       div > span {
         margin-right: 10px;
+        font-weight: 700;
       }
       &.isActive {
         background: $yellow;

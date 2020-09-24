@@ -2,13 +2,14 @@
   display: flex;
   justify-content: center;
   position: relative;
+  align-items: center;
   .play {
     height: 100px;
     width: 100px;
     border: solid 3px $yellow;
     border-radius: 50%;
     background-color: transparent;
-    margin: 60px 0;
+    margin: 60px 30px;
     transition: 0.3s;
     &:hover {
       cursor: pointer;
@@ -29,6 +30,11 @@
     background-color: $black2;
     color: white;
     opacity: 0.4;
+    &:hover {
+      cursor: pointer;
+      transform: scale(0.9);
+      opacity: 0.8;
+    }
   }
 }
 

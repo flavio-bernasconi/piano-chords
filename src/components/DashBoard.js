@@ -37,7 +37,7 @@ export const DashBoard = inject("rootStore")(
               {currentChord && (
                 <>
                   <h1>{currentChord}</h1>
-                  <Inversion />
+                  {currentChord !== "chord not found" && <Inversion />}
                 </>
               )}
               {messageChordResult}

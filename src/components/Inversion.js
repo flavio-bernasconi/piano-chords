@@ -6,14 +6,19 @@ export const Inversion = inject("rootStore")(
     const { inversion, setInversionChord } = rootStore;
     return (
       <div className="inversions-list">
-        {[0, 1, 2].map((n) => (
-          <p
-            className={`inversion ${n === inversion && "inversion-active"}`}
-            onClick={() => setInversionChord(n)}
-          >
-            {n}
-          </p>
-        ))}
+        <p className="inversion-title" style={{ color: "white" }}>
+          inversions
+        </p>
+        <div className="list">
+          {[0, 1, 2].map((n) => (
+            <p
+              className={`inversion ${n === inversion && "inversion-active"}`}
+              onClick={() => setInversionChord(n)}
+            >
+              {n}
+            </p>
+          ))}
+        </div>
       </div>
     );
   })
