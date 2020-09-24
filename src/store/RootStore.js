@@ -2,9 +2,9 @@ import { types as t } from "mobx-state-tree";
 import { NoteModel } from "./Note";
 import { CHORDS, OCTAVE_NOTES } from "../const";
 import {
-  getInversion,
   isChordEqualToSelectedNotes,
   getAllInversions,
+  mapOrder,
 } from "../utils";
 import AudioPlayer from "../components/Audio";
 import cloneDeep from "lodash/cloneDeep";
@@ -50,9 +50,8 @@ export const RootStore = t
       }
     },
     sortNotes() {
-      return self.selectedNotes
-        .slice()
-        .sort((a, b) => (a.index > b.index ? 1 : -1));
+      const clone = [...self.selectedNotes];
+      return mapOrder(clone, OCTAVE_NOTES, "note");
     },
     getChord() {
       let chordResult = "";
@@ -100,11 +99,11 @@ export const RootStore = t
 
       self.inversion = inversionNumber;
       self.selectedNotes = [];
-
-      inversion[0].chord.forEach((note, i) => {
-        const infoNote = { note, index: i };
-        self.selectedNotes = [...self.selectedNotes, infoNote];
-      });
+      self.currentChord !== "chord not found" &&
+        inversion[0].chord.forEach((note, i) => {
+          const infoNote = { note, index: i };
+          self.selectedNotes = [...self.selectedNotes, infoNote];
+        });
     },
     changeRelatedChord(relatedChord) {
       const {
