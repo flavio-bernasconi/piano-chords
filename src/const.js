@@ -21,7 +21,7 @@ export const OCTAVE_NOTES = OCTAVE_NUMBERS.reduce((notes, octaveNumber) => {
 
 export const MAJOR = [
   { "C major": ["C", "E", "G"] },
-  { "Db major": ["Db", "E", "Ab"] },
+  { "Db major": ["Db", "F", "Ab"] },
   { "D major": ["D", "Gb", "A"] },
   { "Eb major": ["Eb", "D", "Bb"] },
   { "E major": ["E", "Ab", "B"] },
