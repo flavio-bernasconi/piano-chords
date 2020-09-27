@@ -25,8 +25,8 @@ export const DashBoard = inject("rootStore")(
       ].forEach(({ index, note }) => setNotes(note, index));
     }, []);
 
-    const x = selectedNotes.toJSON();
-    vf.draw();
+    selectedNotes.toJSON();
+    // vf.draw();
 
     return (
       <div>

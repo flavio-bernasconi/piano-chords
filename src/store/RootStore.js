@@ -1,10 +1,13 @@
 import { types as t } from "mobx-state-tree";
 import { NoteModel } from "./Note";
-import { CHORDS, OCTAVE_NOTES } from "../const";
+import { CHORDS, MAJOR, MESSAGE, OCTAVE_NOTES } from "../const";
 import {
   isChordEqualToSelectedNotes,
   getAllInversions,
   mapOrder,
+  getNotesToPlay,
+  filterSortedNotesStartingFromFirstChordNote,
+  noteWithAllValidOctaves,
 } from "../utils";
 import AudioPlayer from "../components/Audio";
 import cloneDeep from "lodash/cloneDeep";
@@ -18,7 +21,7 @@ export const RootStore = t
     currentChord: t.optional(t.string, ""),
     relatedChords: t.optional(t.array(t.frozen()), []),
     rootOctave: t.optional(t.string, ""),
-    messageChordResult: t.optional(t.string, "select at least 3 notes"),
+    messageChordResult: t.optional(t.string, MESSAGE.selectNotes),
     inversion: t.optional(t.number, 0),
     initialChord: t.optional(t.array(t.frozen()), []),
   })
@@ -45,13 +48,9 @@ export const RootStore = t
         self.messageChordResult = "";
       } else {
         self.currentChord = "";
-        self.messageChordResult = "select at least 3 notes";
+        self.messageChordResult = MESSAGE.selectNotes;
         self.inversion = 0;
       }
-    },
-    sortNotes() {
-      const clone = [...self.selectedNotes];
-      return mapOrder(clone, OCTAVE_NOTES, "note");
     },
     getChord() {
       let chordResult = "";
@@ -67,7 +66,7 @@ export const RootStore = t
       } else {
         self.inversion = 0;
       }
-      self.currentChord = chordName || "chord not found";
+      self.currentChord = chordName || MESSAGE.chordNotFound;
       self.initialChord = cloneDeep(self.sortNotes());
       self.rootOctave = self.sortNotes()[0].note.slice(-1);
 
@@ -77,7 +76,7 @@ export const RootStore = t
       self.selectedNotes = [];
       self.currentChord = "";
       self.inversion = 0;
-      self.messageChordResult = "select at least 3 notes";
+      self.messageChordResult = MESSAGE.selectNotes;
     },
     playSingleNote(note) {
       const audioPlayer = AudioPlayer();
@@ -99,43 +98,55 @@ export const RootStore = t
 
       self.inversion = inversionNumber;
       self.selectedNotes = [];
-      self.currentChord !== "chord not found" &&
+      self.currentChord !== MESSAGE.chordNotFound &&
         inversion[0].chord.forEach((note, i) => {
           const infoNote = { note, index: i };
           self.selectedNotes = [...self.selectedNotes, infoNote];
         });
     },
     changeRelatedChord(relatedChord) {
-      const {
-        currentChord,
-        refreshKeys,
-        selectedNotes,
-        setNotes,
-        rootOctave,
-      } = self;
+      const { currentChord, refreshKeys, setNotes, rootOctave } = self;
       window.scrollTo({ top: 0, behavior: "smooth" });
 
-      const chordsToPlay = Object.values(relatedChord)[0];
-      if (chordsToPlay === currentChord) {
+      const chordNotes = Object.values(relatedChord)[0];
+      if (chordNotes === currentChord) {
         return null;
       } else {
         refreshKeys();
-        chordsToPlay.forEach((tone, index) => {
-          const clone = [...OCTAVE_NOTES];
-          const indexRootNote = OCTAVE_NOTES.indexOf(
-            Boolean(selectedNotes.length) && selectedNotes[0]?.note
+
+        const allNotesFromFirstNote = filterSortedNotesStartingFromFirstChordNote(
+          chordNotes,
+          rootOctave
+        );
+
+        chordNotes.forEach((note, index) => {
+          const noteToSet = noteWithAllValidOctaves(
+            allNotesFromFirstNote,
+            note
           );
-          if (indexRootNote > -1) {
-            const listNotesRoot = clone.filter((_, i) => i >= +indexRootNote);
-            const noteToPlayAllOctave = listNotesRoot.filter(
-              (note) => note.trim().slice(0, -1) === tone.trim()
-            );
-            setNotes(noteToPlayAllOctave[0], index);
-          } else {
-            setNotes(tone.trim() + rootOctave, index);
-          }
+          setNotes(noteToSet[0], index);
         });
       }
+    },
+    listAllChords(tone) {
+      const { refreshKeys, setNotes, rootOctave } = self;
+      refreshKeys();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      const getMajorChord = MAJOR.filter(
+        (chord) => Object.keys(chord)[0] === tone + " major"
+      );
+      const chordNotes = Object.values(getMajorChord[0])[0];
+
+      const allNotesFromFirstNote = filterSortedNotesStartingFromFirstChordNote(
+        chordNotes,
+        rootOctave
+      );
+
+      chordNotes.forEach((note, index) => {
+        const noteToSet = noteWithAllValidOctaves(allNotesFromFirstNote, note);
+        setNotes(noteToSet[0], index);
+      });
     },
   }))
   .views((self) => ({
@@ -147,5 +158,9 @@ export const RootStore = t
     },
     isSelectedNotesFull() {
       return self.selectedNotes.length >= limitKeys;
+    },
+    sortNotes() {
+      const clone = [...self.selectedNotes];
+      return mapOrder(clone, OCTAVE_NOTES, "note");
     },
   }));

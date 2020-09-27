@@ -7,7 +7,7 @@
     position: absolute;
     font-size: 5rem;
     top: 50%;
-    left: 90px;
+    left: $side-padding;
     transform: translateY(-50%);
     line-height: 6rem;
     text-transform: capitalize;
@@ -31,7 +31,7 @@
       border: solid 2px $yellow;
       z-index: 3;
       &:first-child {
-        margin-left: 40vw;
+        margin-left: 30vw;
       }
       h3 {
         font-size: 2rem;

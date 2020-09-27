@@ -23,10 +23,10 @@ export const MAJOR = [
   { "C major": ["C", "E", "G"] },
   { "Db major": ["Db", "F", "Ab"] },
   { "D major": ["D", "Gb", "A"] },
-  { "Eb major": ["Eb", "D", "Bb"] },
+  { "Eb major": ["Eb", "G", "Bb"] },
   { "E major": ["E", "Ab", "B"] },
   { "F major": ["F", "A", "C"] },
-  { "Gb major": ["Gb", "Ab", "Db"] },
+  { "Gb major": ["Gb", "Bb", "Db"] },
   { "G major": ["G", "B", "D"] },
   { "Ab major": ["Ab", "C", "Eb"] },
   { "A major": ["A", "Db", "E"] },
@@ -119,3 +119,8 @@ export const CHORDS = [
 ];
 
 export const timeNotesPlay = 1300;
+
+export const MESSAGE = {
+  selectNotes: "select at least 3 notes",
+  chordNotFound: "chord not found",
+};

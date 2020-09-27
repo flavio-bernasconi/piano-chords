@@ -1,4 +1,4 @@
-import { CHORDS } from "./const";
+import { CHORDS, OCTAVE_NOTES } from "./const";
 
 export function removeNumberFromNote(notes) {
   return notes.map((single) => single.note.replace(/[0-9]/g, ""));
@@ -99,6 +99,19 @@ export function mapOrder(array, order, key) {
   return array;
 }
 
+export function filterSortedNotesStartingFromFirstChordNote(
+  chordNotes,
+  rootOctave
+) {
+  const firstNote = chordNotes[0] + rootOctave;
+  return [...OCTAVE_NOTES.slice(OCTAVE_NOTES.indexOf(firstNote))];
+}
+
+export function noteWithAllValidOctaves(allNotesFromFirstNote, tone) {
+  return allNotesFromFirstNote.filter(
+    (t) => tone.trim() === t.trim().slice(0, -1)
+  );
+}
 // function moveLastArrayElementToFirstIndex(array) {
 //   array.splice(0, 0, array[array.length - 1]);
 //   array.pop();
