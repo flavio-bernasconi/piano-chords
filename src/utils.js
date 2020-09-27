@@ -35,10 +35,11 @@ export function isOutOfRange(indexNotesSlected, i) {
 }
 
 export function isChordEqualToSelectedNotes(chord, self) {
-  return (
-    Object.values(chord)[0].slice().sort().join(",") ===
-    removeNumberFromNote(self.sortNotes()).sort().join(",")
-  );
+  var is_same = Object.values(chord)[0].every(function (element, index) {
+    return element === removeNumberFromNote(self.sortNotes())[index];
+  });
+
+  return is_same;
 }
 
 export function getAllInversions(mainChord, inversionNumber, initialChord) {
