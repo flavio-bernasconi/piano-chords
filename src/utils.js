@@ -35,9 +35,12 @@ export function isOutOfRange(indexNotesSlected, i) {
 }
 
 export function isChordEqualToSelectedNotes(chord, self) {
-  var is_same = Object.values(chord)[0].every(function (element, index) {
-    return element === removeNumberFromNote(self.sortNotes())[index];
-  });
+  var is_same =
+    Object.values(chord)[0].length ===
+      removeNumberFromNote(self.sortNotes()).length &&
+    Object.values(chord)[0].every(function (element, index) {
+      return element === removeNumberFromNote(self.sortNotes())[index];
+    });
 
   return is_same;
 }
