@@ -5,7 +5,6 @@ import {
   isChordEqualToSelectedNotes,
   getAllInversions,
   mapOrder,
-  getNotesToPlay,
   filterSortedNotesStartingFromFirstChordNote,
   noteWithAllValidOctaves,
 } from "../utils";
@@ -53,14 +52,11 @@ export const RootStore = t
       }
     },
     getChord() {
-      let chordResult = "";
-      CHORDS.forEach((chord) => {
-        if (isChordEqualToSelectedNotes(chord, self)) {
-          chordResult = chord;
-        }
-      });
+      const chordResult = CHORDS.filter((chord) =>
+        isChordEqualToSelectedNotes(chord, self)
+      );
 
-      const chordName = Object.keys(chordResult)[0];
+      const chordName = Object.keys(chordResult[0])[0];
       if (chordName) {
         self.getRelatedChords(chordName.slice(0, 2));
       } else {
