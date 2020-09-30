@@ -311,6 +311,7 @@ p {
   justify-content: center;
   align-items: center;
   transition: 0.3s;
+  border: solid 2px #ff7045;
 }
 
 .parallax .btn-round:hover {

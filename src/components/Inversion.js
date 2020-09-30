@@ -14,6 +14,7 @@ export const Inversion = inject("rootStore")(
             <p
               className={`inversion ${n === inversion && "inversion-active"}`}
               onClick={() => setInversionChord(n)}
+              key={n}
             >
               {n}
             </p>

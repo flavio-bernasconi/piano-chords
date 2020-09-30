@@ -50,7 +50,7 @@ export const PlayResetButtons = inject("rootStore")(
           <PlayButtonIcon width={30} color={isPlaying ? "white" : "#fbce41"} />
         </button>
         <button className="reset" onClick={refreshKeys}>
-          <img src="icons/reset.svg" alt="play-icon" width="30px" />
+          <img src="icons/refresh.svg" alt="play-icon" width="30px" />
         </button>
       </div>
     );

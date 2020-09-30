@@ -9,7 +9,7 @@ export const OtherChords = inject("rootStore")(
       <div className="parallax">
         <h3>Other chords</h3>
         {TONES.map((tone, i) => (
-          <div className="btn-round">
+          <div className="btn-round" key={Math.random()}>
             <p
               className="chord"
               onClick={() => {
