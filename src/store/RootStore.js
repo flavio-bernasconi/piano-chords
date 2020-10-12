@@ -56,7 +56,7 @@ export const RootStore = t
         isChordEqualToSelectedNotes(chord, self)
       );
 
-      const chordName = Object.keys(chordResult[0])[0];
+      const chordName = chordResult[0] && Object.keys(chordResult[0])[0];
       if (chordName) {
         self.getRelatedChords(chordName.slice(0, 2));
       } else {
