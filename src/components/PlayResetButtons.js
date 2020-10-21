@@ -24,14 +24,10 @@ export const PlayResetButtons = inject("rootStore")(
         });
       });
 
-      if (!isPlaying) {
+      if (!isPlaying && listOfSounds.length === selectedNotes.length) {
         listOfSounds.forEach((sound, i) => {
           const singleNotePlaying = sound.play();
           sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
-          // setTimeout(() => {
-          //   const singleNotePlaying = sound.play();
-          //   sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
-          // }, i * 50);
         });
       }
 
