@@ -27,7 +27,8 @@ export const PlayResetButtons = inject("rootStore")(
       if (!isPlaying && listOfSounds.length === selectedNotes.length) {
         listOfSounds.forEach((sound, i) => {
           const singleNotePlaying = sound.play();
-          sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
+          console.log(singleNotePlaying);
+          // sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
         });
       }
 
