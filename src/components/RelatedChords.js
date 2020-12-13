@@ -10,7 +10,7 @@ export const RelatedChords = inject("rootStore")(
     const [opacityTitle, setopacityTitle] = useState(initialOpacity);
 
     const scrolling = (px) => {
-      setopacityTitle(initialOpacity - px * 0.002);
+      if (window.innerWidth > 900) setopacityTitle(initialOpacity - px * 0.002);
     };
 
     return (
@@ -32,6 +32,9 @@ export const RelatedChords = inject("rootStore")(
                   <div
                     onClick={() => {
                       changeRelatedChord(relatedChord);
+                      document.querySelector(
+                        ".indiana-scroll-container"
+                      ).scrollLeft = 0;
                     }}
                     className={`related-chord  ${
                       Object.keys(relatedChord)[0] === currentChord
