@@ -3,6 +3,9 @@
   justify-content: center;
   position: relative;
   align-items: center;
+  @include sm {
+    flex-wrap: wrap;
+  }
   .play {
     height: 100px;
     width: 100px;
@@ -10,6 +13,7 @@
     border-radius: 50%;
     background-color: transparent;
     margin: 60px 30px;
+    margin-top: 20px;
     transition: 0.3s;
     &:hover {
       cursor: pointer;
@@ -30,6 +34,9 @@
     background-color: $black2;
     color: white;
     opacity: 0.4;
+    @include sm {
+      width: 100%;
+    }
     &:hover {
       cursor: pointer;
       transform: scale(0.9);

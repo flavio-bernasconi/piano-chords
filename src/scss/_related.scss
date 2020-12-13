@@ -3,6 +3,9 @@
   margin-top: 70px;
   background: $black;
   padding: 70px 0;
+  @include md {
+    padding-top: 150px;
+  }
   .big-title {
     position: absolute;
     font-size: 5rem;
@@ -11,6 +14,18 @@
     transform: translateY(-50%);
     line-height: 6rem;
     text-transform: capitalize;
+    width: 20%;
+    @include md {
+      font-size: 3rem;
+      top: 70px;
+      width: 100%;
+    }
+    @include sm {
+      font-size: 1.8rem;
+      top: 50px;
+      width: 100%;
+      line-height: 3rem;
+    }
   }
   .related-chords {
     display: flex;
@@ -23,13 +38,19 @@
       display: inline-block;
       margin-right: 60px;
       background-color: $black;
-      min-width: 500px;
+      min-width: 400px;
       color: white;
       border-radius: 20px;
       padding: 30px;
       box-sizing: border-box;
       border: solid 2px $yellow;
       z-index: 3;
+      @include md {
+        min-width: 300px;
+      }
+      @include sm {
+        min-width: auto;
+      }
       &:first-child {
         margin-left: 30vw;
       }

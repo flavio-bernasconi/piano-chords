@@ -25,11 +25,13 @@ export const PlayResetButtons = inject("rootStore")(
       });
 
       if (!isPlaying && listOfSounds.length === selectedNotes.length) {
-        listOfSounds.forEach((sound, i) => {
-          const singleNotePlaying = sound.play();
-          console.log(singleNotePlaying);
-          // sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
-        });
+        setTimeout(() => {
+          listOfSounds.forEach((sound, i) => {
+            const singleNotePlaying = sound.play();
+            console.log(singleNotePlaying);
+            sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
+          });
+        }, 100);
       }
 
       setisPlaying(true);

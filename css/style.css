@@ -38,11 +38,12 @@ p {
   display: flex;
   margin: auto;
   align-items: center;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 .piano .keys {
   display: flex;
+  min-width: 1000px;
   width: 100%;
 }
 
@@ -70,15 +71,16 @@ p {
 }
 
 .piano .keys .key.white.isActive {
-  background-color: #d8e0e4 !important;
+  background-color: #e9f4fa !important;
 }
 
 .piano .keys .key.white.isActive .textKey {
-  color: #2e383d;
+  color: rgba(46, 56, 61, 0.4);
+  font-size: 12px;
 }
 
 .piano .keys .key.white .textKey {
-  font-size: 14px;
+  font-size: 10px;
 }
 
 .piano .keys .key.black {
@@ -86,6 +88,14 @@ p {
   width: 1.8vw;
   z-index: 2;
   background-color: #222222;
+  left: 2px;
+}
+
+@media only screen and (max-width: 768px) {
+  .piano .keys .key.black {
+    left: -2px;
+    min-width: 20px;
+  }
 }
 
 .piano .keys .key.black.isActive {
@@ -97,7 +107,7 @@ p {
 }
 
 .piano .keys .key.black .textKey {
-  font-size: 12px;
+  display: none;
 }
 
 .piano .keys .key .textKey {
@@ -142,12 +152,29 @@ p {
 }
 
 .dashboard .list-notes .chord-result {
+  text-align: center;
   width: 100%;
+}
+
+.dashboard .list-notes .chord-result h1 {
   color: #fbce41;
   text-transform: uppercase;
-  text-align: center;
-  font-size: 3rem;
-  line-height: 8rem;
+  font-size: 5.5rem;
+  line-height: 7rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .dashboard .list-notes .chord-result h1 {
+    font-size: 4rem;
+    line-height: 6rem;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .dashboard .list-notes .chord-result h1 {
+    font-size: 2rem;
+    line-height: 3.5rem;
+  }
 }
 
 .buttons {
@@ -157,6 +184,12 @@ p {
   align-items: center;
 }
 
+@media only screen and (max-width: 390px) {
+  .buttons {
+    flex-wrap: wrap;
+  }
+}
+
 .buttons .play {
   height: 100px;
   width: 100px;
@@ -164,6 +197,7 @@ p {
   border-radius: 50%;
   background-color: transparent;
   margin: 60px 30px;
+  margin-top: 20px;
   transition: 0.3s;
 }
 
@@ -190,6 +224,12 @@ p {
   opacity: 0.4;
 }
 
+@media only screen and (max-width: 390px) {
+  .buttons .reset {
+    width: 100%;
+  }
+}
+
 .buttons .reset:hover {
   cursor: pointer;
   transform: scale(0.9);
@@ -212,6 +252,12 @@ p {
   padding: 70px 0;
 }
 
+@media only screen and (max-width: 768px) {
+  .related-chords-container {
+    padding-top: 150px;
+  }
+}
+
 .related-chords-container .big-title {
   position: absolute;
   font-size: 5rem;
@@ -220,6 +266,24 @@ p {
   transform: translateY(-50%);
   line-height: 6rem;
   text-transform: capitalize;
+  width: 20%;
+}
+
+@media only screen and (max-width: 768px) {
+  .related-chords-container .big-title {
+    font-size: 3rem;
+    top: 70px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .related-chords-container .big-title {
+    font-size: 1.8rem;
+    top: 50px;
+    width: 100%;
+    line-height: 3rem;
+  }
 }
 
 .related-chords-container .related-chords {
@@ -235,13 +299,25 @@ p {
   display: inline-block;
   margin-right: 60px;
   background-color: #2e383d;
-  min-width: 500px;
+  min-width: 400px;
   color: white;
   border-radius: 20px;
   padding: 30px;
   box-sizing: border-box;
   border: solid 2px #fbce41;
   z-index: 3;
+}
+
+@media only screen and (max-width: 768px) {
+  .related-chords-container .related-chords .related-chord {
+    min-width: 300px;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .related-chords-container .related-chords .related-chord {
+    min-width: auto;
+  }
 }
 
 .related-chords-container .related-chords .related-chord:first-child {
@@ -312,12 +388,14 @@ p {
   align-items: center;
   transition: 0.3s;
   border: solid 2px #ff7045;
+  box-shadow: 2px 1px 0 #ff7045;
 }
 
 .parallax .btn-round:hover {
   color: white;
   background-color: #ff7045;
   cursor: pointer;
+  box-shadow: 2px 5px 0 #ce4708;
 }
 
 .parallax .btn-round .chord {
@@ -336,12 +414,25 @@ p {
 .inversions-list .list {
   display: flex;
   justify-content: space-between;
-  width: 300px;
+  width: 250px;
   margin: auto;
 }
 
+@media only screen and (max-width: 768px) {
+  .inversions-list .list {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .inversions-list .list {
+    width: 130px;
+  }
+}
+
 .inversions-list .list .inversion {
-  color: white;
+  color: #405057;
+  font-size: 3rem;
 }
 
 .inversions-list .list .inversion:hover {

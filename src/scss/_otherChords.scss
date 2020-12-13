@@ -24,10 +24,12 @@
     align-items: center;
     transition: 0.3s;
     border: solid 2px $orange;
+    box-shadow: 2px 1px 0 $orange;
     &:hover {
       color: white;
       background-color: $orange;
       cursor: pointer;
+      box-shadow: 2px 5px 0 rgb(206, 71, 8);
     }
     .chord {
       font-size: 2rem;

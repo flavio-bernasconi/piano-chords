@@ -16,8 +16,7 @@ export const RelatedChords = inject("rootStore")(
     return (
       <div className="related-chords-container">
         <h1 style={{ opacity: opacityTitle }} className="big-title">
-          related
-          <br /> chords
+          related chords
         </h1>
         <ScrollContainer
           onScroll={(px) => scrolling(px)}

@@ -10,10 +10,17 @@
   .list {
     display: flex;
     justify-content: space-between;
-    width: 300px;
+    width: 250px;
     margin: auto;
+    @include md {
+      width: 200px;
+    }
+    @include sm {
+      width: 130px;
+    }
     .inversion {
-      color: white;
+      color: $gray;
+      font-size: 3rem;
       &:hover {
         cursor: pointer;
       }
