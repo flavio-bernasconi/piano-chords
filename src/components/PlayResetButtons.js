@@ -25,13 +25,18 @@ export const PlayResetButtons = inject("rootStore")(
       });
 
       if (!isPlaying && listOfSounds.length === selectedNotes.length) {
-        setTimeout(() => {
-          listOfSounds.forEach((sound, i) => {
-            const singleNotePlaying = sound.play();
-            console.log(singleNotePlaying);
-            sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
-          });
-        }, 100);
+        for (var prop in listOfSounds) {
+          if (!listOfSounds.hasOwnProperty(prop)) continue;
+          listOfSounds[prop].play();
+        }
+
+        // setTimeout(() => {
+        //   listOfSounds.forEach((sound, i) => {
+        //     const singleNotePlaying = sound.play();
+        //     console.log(singleNotePlaying);
+        //     sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
+        //   });
+        // }, 100);
       }
 
       setisPlaying(true);
