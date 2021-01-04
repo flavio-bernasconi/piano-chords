@@ -44,12 +44,14 @@ export const PlayResetButtons = inject("rootStore")(
           });
         });
         setListOfSounds(listOfSounds);
-        listOfSounds.forEach((sound, i) => {
-          const singleNotePlaying = sound.play();
-          sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
-        });
-      } else {
-        setIsReady(false);
+        listOfSounds[0].play();
+        listOfSounds[1].play();
+        listOfSounds[2].play();
+        listOfSounds[4] && listOfSounds[4].play();
+        // listOfSounds.forEach((sound, i) => {
+        //   const singleNotePlaying = sound.play();
+        //   sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
+        // });
       }
 
       setisPlaying(true);
