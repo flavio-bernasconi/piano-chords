@@ -41,9 +41,6 @@ const Key = inject("rootStore")(
 export const Keys = () => {
   return (
     <div className="keys">
-      <audio id="audio">
-        <source src="../sounds/A0.mp3" />
-      </audio>
       {OCTAVE_NOTES.map((tone, i) => (
         <Key tone={tone} key={i} index={i} />
       ))}

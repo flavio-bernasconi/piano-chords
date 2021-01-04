@@ -24,19 +24,28 @@ export const PlayResetButtons = inject("rootStore")(
         });
       });
 
-      if (!isPlaying && listOfSounds.length === selectedNotes.length) {
-        for (var prop in listOfSounds) {
-          if (!listOfSounds.hasOwnProperty(prop)) continue;
-          listOfSounds[prop].play();
-        }
+      const areAllSoundsLoaded = listOfSounds
+        .map((sound) => sound._state)
+        .every((soundState) => soundState === "loaded");
+      console.log(areAllSoundsLoaded);
 
-        // setTimeout(() => {
-        //   listOfSounds.forEach((sound, i) => {
-        //     const singleNotePlaying = sound.play();
-        //     console.log(singleNotePlaying);
-        //     sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
-        //   });
-        // }, 100);
+      if (
+        !isPlaying &&
+        listOfSounds.length === selectedNotes.length &&
+        areAllSoundsLoaded
+      ) {
+        // for (var sound in listOfSounds) {
+        //   if (!listOfSounds.hasOwnProperty(sound)) continue;
+
+        //   listOfSounds[sound].play();
+        // }
+
+        listOfSounds.forEach((sound, i) => {
+          const singleNotePlaying = sound.play();
+          console.log(sound._state);
+          console.log(singleNotePlaying);
+          sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
+        });
       }
 
       setisPlaying(true);
