@@ -48,6 +48,8 @@ export const PlayResetButtons = inject("rootStore")(
           const singleNotePlaying = sound.play();
           sound.fade(1, 0, timeNotesPlay, singleNotePlaying);
         });
+      } else {
+        setIsReady(false);
       }
 
       setisPlaying(true);
